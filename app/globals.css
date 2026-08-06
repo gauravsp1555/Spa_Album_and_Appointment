@@ -1,0 +1,377 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --font-manrope: var(--font-manrope, 'Manrope', -apple-system, BlinkMacSystemFont, sans-serif);
+    --font-jetbrains-mono: var(--font-jetbrains-mono, 'JetBrains Mono', monospace);
+    --font-cinzel: var(--font-cinzel, 'Cinzel', serif);
+    --font-syne: var(--font-syne, 'Syne', sans-serif);
+    --gaurav-orange: #e8602e;
+    --gaurav-orange-glow: rgba(232, 96, 46, 0.25);
+    --gaurav-dark: #0b0c10;
+    --gaurav-card-bg: #14151c;
+    --gaurav-card-border: rgba(255, 255, 255, 0.08);
+  }
+
+  /* Cool White Theme overrides */
+  .light {
+    --bg-main: #f4f6f9;
+    --bg-card: #ffffff;
+    --text-main: #1f2937;
+    --text-title: #111827;
+    --text-muted: #4b5563;
+    --text-extra-muted: #6b7280;
+    --border-main: rgba(0, 0, 0, 0.09);
+    --gaurav-dark: #f4f6f9;
+    --gaurav-card-bg: #ffffff;
+    --gaurav-card-border: rgba(0, 0, 0, 0.09);
+    --text-glow-shadow: rgba(0, 0, 0, 0.03);
+  }
+
+  /* Universal dark/light transition for a smooth look */
+  html, body, div, section, header, nav, footer, button, input, select, textarea, span, p, h1, h2, h3, h4, h5, h6, table, tr, th, td {
+    transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  /* Body, main sections, and general background-colors */
+  .light body,
+  .light .bg-\[\#0b0c10\],
+  .light .bg-\[\#0c0a09\] {
+    background-color: var(--bg-main) !important;
+    color: var(--text-main) !important;
+  }
+
+  /* Header overrides */
+  .light .bg-\[\#0b0c10\]\/90 {
+    background-color: rgba(244, 246, 249, 0.92) !important;
+  }
+  .light .shadow-\[0_4px_20px_rgba\(0\,0\,0\,0\.5\)\] {
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05) !important;
+  }
+
+  /* Card backgrounds */
+  .light .bg-\[\#14151c\],
+  .light .bg-stone-900\/30,
+  .light .bg-stone-900\/40,
+  .light .bg-stone-950,
+  .light .bg-stone-950\/60 {
+    background-color: var(--bg-card) !important;
+  }
+  
+  .light .bg-\[\#14151c\]\/70 {
+    background-color: rgba(255, 255, 255, 0.75) !important;
+  }
+
+  /* List & button background overrides */
+  .light .bg-\[\#1a1c26\],
+  .light .bg-\[\#1a1c26\]\/60 {
+    background-color: #f3f4f6 !important;
+    color: var(--text-main) !important;
+  }
+
+  .light .bg-\[\#1a1c26\]\/80 {
+    background-color: #ffffff !important;
+    color: var(--text-main) !important;
+  }
+  
+  .light .bg-zinc-800\/80,
+  .light .bg-stone-900\/60,
+  .light .hover\:bg-zinc-800\/80:hover,
+  .light .hover\:bg-stone-900\/60:hover {
+    background-color: rgba(0, 0, 0, 0.06) !important;
+  }
+
+  .light .bg-\[\#14151c\]\/90 {
+    background-color: rgba(255, 255, 255, 0.92) !important;
+  }
+
+  /* Inputs, selects, and textareas */
+  .light input,
+  .light select,
+  .light textarea,
+  .light .bg-\[\#1a1c26\] {
+    background-color: #ffffff !important;
+    color: var(--text-title) !important;
+    border-color: var(--border-main) !important;
+  }
+  
+  .light option {
+    background-color: #ffffff !important;
+    color: var(--text-title) !important;
+  }
+
+  /* Typography / Text overrides */
+  .light .text-\[\#f3f4f6\],
+  .light .text-stone-100,
+  .light .text-stone-200,
+  .light .text-stone-300 {
+    color: var(--text-main) !important;
+  }
+
+  .light .text-zinc-300:not([class*="bg-"]):not([class*="from-"]):not([class*="to-"]):not([class*="hover:bg-"]),
+  .light .text-zinc-400:not([class*="bg-"]):not([class*="from-"]):not([class*="to-"]):not([class*="hover:bg-"]),
+  .light .text-stone-400:not([class*="bg-"]):not([class*="from-"]):not([class*="to-"]),
+  .light .text-stone-455:not([class*="bg-"]):not([class*="from-"]):not([class*="to-"]) {
+    color: var(--text-muted) !important;
+  }
+
+  .light .text-zinc-500,
+  .light .text-stone-500 {
+    color: var(--text-extra-muted) !important;
+  }
+
+  /* Ensure text-white transitions to text-title EXCEPT when inside colored buttons/badges */
+  .light .text-white:not([class*="bg-[#e8602e]"]):not([class*="bg-gradient"]):not([class*="bg-emerald"]):not([class*="bg-amber"]):not([class*="bg-red"]):not([class*="bg-blue"]):not([class*="bg-[#ff5e00]"]) {
+    color: var(--text-title) !important;
+  }
+
+  .light .hover\:text-white:hover:not([class*="bg-[#e8602e]"]):not([class*="bg-gradient"]):not([class*="bg-[#ff5e00]"]) {
+    color: var(--text-title) !important;
+  }
+
+  /* Overrides for status and currency text indicators that are light-yellow in dark mode and would be unreadable on light backgrounds */
+  .light .text-amber-200,
+  .light .text-amber-250,
+  .light .text-amber-400 {
+    color: #b45309 !important; /* Premium deep amber-700 for visual contrast */
+  }
+
+  .light .text-emerald-400 {
+    color: #047857 !important; /* Premium emerald-700 green */
+  }
+
+  .light .text-sky-400 {
+    color: #0284c7 !important; /* Premium sky-600 blue */
+  }
+
+  /* Custom Chart SVG Overrides */
+  .light line[stroke="#27272a"] {
+    stroke: #e2e8f0 !important;
+  }
+  
+  .light path[stroke="#fde047"] {
+    stroke: #b45309 !important;
+  }
+
+  .light circle[stroke="#fde047"] {
+    stroke: #b45309 !important;
+  }
+
+  .light circle[fill="#0c0a09"] {
+    fill: var(--bg-card) !important;
+  }
+  
+  .light circle[fill="#171514"] {
+    fill: var(--bg-card) !important;
+  }
+  
+  .light path[stroke="#0c0a09"] {
+    stroke: var(--bg-card) !important;
+  }
+
+  .light .fill-stone-400 {
+    fill: var(--text-muted) !important;
+  }
+  
+  .light .fill-stone-500 {
+    fill: var(--text-extra-muted) !important;
+  }
+  
+  .light .fill-stone-300 {
+    fill: var(--text-main) !important;
+  }
+
+  /* Table borders & rows */
+  .light tr.bg-stone-950 {
+    background-color: #f1f5f9 !important;
+  }
+  
+  .light tr.border-stone-850 {
+    border-color: var(--border-main) !important;
+  }
+
+  /* Borders */
+  .light .border-white\/5,
+  .light .border-white\/10,
+  .light .border-white\/15,
+  .light .border-stone-800,
+  .light .border-stone-850,
+  .light .border-\[\#1c1917\]\/70 {
+    border-color: var(--border-main) !important;
+  }
+
+  /* Subtle adjustments */
+  .light .shadow-2xl,
+  .light .shadow-md,
+  .light .shadow-\[0_10px_30px_rgba\(0\,0\,0\,0\.6\)\] {
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04) !important;
+  }
+  
+  /* Ambient glow logic in Light mode */
+  .light .glow-bg {
+    background: radial-gradient(circle, rgba(232, 96, 46, 0.05) 0%, transparent 70%) !important;
+  }
+
+  body {
+    background-color: #0b0c10;
+    color: #f3f4f6;
+    font-family: var(--font-manrope);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+  }
+}
+
+.font-cinzel {
+  font-family: var(--font-cinzel), serif;
+}
+
+.font-syne {
+  font-family: var(--font-syne), sans-serif;
+}
+
+.font-elegant-display {
+  font-family: var(--font-cinzel), var(--font-syne), serif;
+}
+
+/* Custom Gaurav Sapkar Ambient Glow Effects */
+.glow-bg {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 320px;
+  height: 320px;
+  background: radial-gradient(circle,
+      rgba(232, 96, 46, 0.18) 0%,
+      transparent 70%);
+  border-radius: 50%;
+  filter: blur(80px);
+  animation: glow-pulse 3s ease-in-out infinite;
+  pointer-events: none;
+}
+
+.gaurav-gradient-text {
+  background: linear-gradient(135deg, #ffffff 0%, #f3f4f6 50%, #e8602e 100%);
+  -webkit-text-fill-color: transparent;
+}
+
+.gaurav-orange-gradient {
+  background: linear-gradient(135deg, #e8602e 0%, #ff7a45 100%);
+}
+
+.gaurav-card {
+  background: #14151c;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.gaurav-card:hover {
+  border-color: rgba(232, 96, 46, 0.5);
+  box-shadow: 0 0 25px rgba(232, 96, 46, 0.15);
+  transform: translateY(-2px);
+}
+
+/* Gaurav Sapkar Marquee Infinite Ticker Animation */
+@keyframes marquee {
+  0% {
+    transform: translateX(0%);
+  }
+
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes marquee-reverse {
+  0% {
+    transform: translateX(-50%);
+  }
+
+  100% {
+    transform: translateX(0%);
+  }
+}
+
+.animate-marquee {
+  display: flex;
+  width: max-content;
+  animation: marquee 55s linear infinite;
+}
+
+.animate-marquee-reverse {
+  display: flex;
+  width: max-content;
+  animation: marquee-reverse 60s linear infinite;
+}
+
+.animate-marquee:hover,
+.animate-marquee-reverse:hover {
+  animation-play-state: paused;
+}
+
+/* Smooth Soft Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scaleUp {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes glow-pulse {
+
+  0%,
+  100% {
+    opacity: 0.6;
+    transform: translate(-50%, -50%) scale(1);
+  }
+
+  50% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.15);
+  }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.3s ease-out forwards;
+}
+
+.animate-scaleUp {
+  animation: scaleUp 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Custom Gaurav Sapkar Dark Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0b0c10;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(232, 96, 46, 0.4);
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #e8602e;
+}
