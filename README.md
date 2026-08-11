@@ -2,7 +2,7 @@
 
 A state-of-the-art Web Application for managing salon appointments, visualizing 360-degree hair lookbooks, and tracking salon revenue performance analytics.
 
----
+----
 
 ## 🌟 Why This Project Was Created
 
