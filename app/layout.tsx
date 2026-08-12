@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Manrope, JetBrains_Mono, Cinzel, Syne } from "next/font/google";
 import "./globals.css";
+import SalonMusicPlayer from "@/components/music/SalonMusicPlayer";
 
 const manrope = Manrope({
   variable: "--font-manrope",
@@ -67,7 +68,9 @@ export default function RootLayout({
       </head>
       <body className="min-h-full flex flex-col bg-[#0b0c10] text-[#f3f4f6] font-sans antialiased selection:bg-[#e8602e] selection:text-white">
         {children}
+        <SalonMusicPlayer />
       </body>
     </html>
   );
 }
+

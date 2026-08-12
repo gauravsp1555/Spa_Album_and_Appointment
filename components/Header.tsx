@@ -37,6 +37,7 @@ export default function Header() {
     { name: "Home", href: "/" },
     { name: "Services", href: "/services" },
     { name: "Lookbook 360", href: "/album?type=all" },
+    { name: "PHA Soundtrack", href: "/soundtrack" },
     { name: "Analytics", href: "/analytics" },
     { name: "Contact & Visit", href: "/contact" },
   ];
