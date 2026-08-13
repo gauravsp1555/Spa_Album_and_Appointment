@@ -6,7 +6,7 @@ export interface Track {
   cover?: string;
   audioUrl: string;
   duration?: number; // duration in seconds
-  category: "90s" | "gen-z";
+  category: "90s" | "gen-z" | "trending";
 }
 
 export const SALON_PLAYLIST: Track[] = [
@@ -111,10 +111,30 @@ export const SALON_PLAYLIST: Track[] = [
     cover: "/images/categories/seniors.jpg",
     audioUrl: "https://cdn.pixabay.com/download/audio/2021/09/06/audio_84976722d3.mp3?filename=ambient-piano-amp-strings-10711.mp3",
     duration: 172,
-    category: "gen-z",
+  },
+  // ================= TRENDING SONGS CATEGORY =================
+  {
+    id: "11",
+    title: "Badass (Urban Trap Fusion)",
+    artist: "Trending Beats Studio",
+    album: "Gaurav Trending Hits",
+    cover: "/images/categories/men.jpg",
+    audioUrl: "https://cdn.pixabay.com/download/audio/2022/10/14/audio_9939f792e7.mp3?filename=smooth-jazz-126233.mp3",
+    duration: 155,
+    category: "trending",
+  },
+  {
+    id: "12",
+    title: "Sajni (Chill Lofi Sitar Mix)",
+    artist: "Acoustic Trendsetters",
+    album: "Retro Trending Cuts",
+    cover: "/images/categories/genz.jpg",
+    audioUrl: "https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8c8a73467.mp3?filename=chill-abstract-intention-12099.mp3",
+    duration: 182,
+    category: "trending",
   },
 ];
 
-export const getSongsByCategory = (category: "90s" | "gen-z"): Track[] => {
+export const getSongsByCategory = (category: "90s" | "gen-z" | "trending"): Track[] => {
   return SALON_PLAYLIST.filter((track) => track.category === category);
 };

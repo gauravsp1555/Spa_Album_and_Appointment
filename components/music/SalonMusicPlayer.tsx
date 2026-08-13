@@ -63,6 +63,14 @@ export default function SalonMusicPlayer() {
     }
   }, []);
 
+  // Sync isPlaying state to localStorage and window
+  useEffect(() => {
+    try {
+      localStorage.setItem("pha_music_is_playing", isPlaying ? "true" : "false");
+      window.dispatchEvent(new CustomEvent("pha_music_is_playing_changed", { detail: { isPlaying } }));
+    } catch {}
+  }, [isPlaying]);
+
   // Update audio element properties on track/volume/mute change
   useEffect(() => {
     if (!audioRef.current) return;
@@ -150,7 +158,22 @@ export default function SalonMusicPlayer() {
       }
     };
 
+    const handleCustomTogglePlay = () => {
+      togglePlay();
+    };
+
+    const handleCustomNextTrack = () => {
+      handleNextTrack();
+    };
+
+    const handleCustomPrevTrack = () => {
+      handlePrevTrack();
+    };
+
     window.addEventListener("pha_play_track", handleCustomPlayTrack);
+    window.addEventListener("pha_toggle_play", handleCustomTogglePlay);
+    window.addEventListener("pha_next_track", handleCustomNextTrack);
+    window.addEventListener("pha_prev_track", handleCustomPrevTrack);
 
     return () => {
       audio.removeEventListener("timeupdate", handleTimeUpdate);
@@ -158,6 +181,9 @@ export default function SalonMusicPlayer() {
       audio.removeEventListener("ended", handleEnded);
       audio.removeEventListener("error", handleError);
       window.removeEventListener("pha_play_track", handleCustomPlayTrack);
+      window.removeEventListener("pha_toggle_play", handleCustomTogglePlay);
+      window.removeEventListener("pha_next_track", handleCustomNextTrack);
+      window.removeEventListener("pha_prev_track", handleCustomPrevTrack);
     };
   }, [currentIndex, currentTrack.duration, handleNextTrack, selectTrack]);
 

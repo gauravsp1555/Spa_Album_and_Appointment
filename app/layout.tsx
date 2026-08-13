@@ -45,6 +45,7 @@ export default function RootLayout({
     <html
       lang="en"
       className={`${manrope.variable} ${jetbrainsMono.variable} ${cinzel.variable} ${syne.variable} h-full antialiased dark`}
+      suppressHydrationWarning
     >
       <head>
         <script
