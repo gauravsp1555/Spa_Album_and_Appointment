@@ -32,9 +32,12 @@ export default function LookbookCard({
         {/* Category Image Banner - Increased Size */}
         {imageSrc ? (
           <div className="relative w-full h-80 sm:h-96 overflow-hidden bg-zinc-900">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={imageSrc}
               alt={`${title} hairstyle`}
+              width={600}
+              height={400}
               className="w-full h-full object-cover group-hover:scale-108 transition-transform duration-700 brightness-95 group-hover:brightness-105"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-[#14151c] via-[#14151c]/50 to-transparent" />

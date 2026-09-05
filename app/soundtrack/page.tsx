@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 import { SALON_PLAYLIST, getSongsByCategory, Track } from "@/lib/musicData";
 import {
   Play,
@@ -10,18 +11,19 @@ import {
   Sparkles,
   Disc,
   Clock,
-  Headphones,
   Flame,
   SkipForward,
   SkipBack,
+  Users,
 } from "lucide-react";
 
-import { FaPlay, FaPause, FaSpotify } from "react-icons/fa";
+import { FaPlay, FaPause } from "react-icons/fa";
 
 export default function SoundtrackPage() {
   const [activeCategory, setActiveCategory] = useState<"90s" | "gen-z" | "trending" | null>(null);
   const [playingTrackId, setPlayingTrackId] = useState<string | null>(null);
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
+  const [liveVisitors, setLiveVisitors] = useState<number>(() => Math.floor(Math.random() * 15) + 12);
 
   // Sync state with global audio player via window events or localStorage
   useEffect(() => {
@@ -54,6 +56,21 @@ export default function SoundtrackPage() {
       clearInterval(interval);
       window.removeEventListener("pha_music_is_playing_changed", handlePlayingChanged);
     };
+  }, []);
+
+  // Simulated Live Visitor Count
+  useEffect(() => {
+    const visitorInterval = setInterval(() => {
+      setLiveVisitors((prev) => {
+        const change = Math.random() > 0.5 ? 1 : -1;
+        let newCount = prev + (Math.random() > 0.8 ? change * 2 : change); // Occasional jump
+        if (newCount < 5) newCount = 5 + Math.floor(Math.random() * 3);
+        if (newCount > 40) newCount = 40 - Math.floor(Math.random() * 3);
+        return newCount;
+      });
+    }, 3500);
+
+    return () => clearInterval(visitorInterval);
   }, []);
 
   const activeSongs: Track[] = activeCategory ? getSongsByCategory(activeCategory) : [];
@@ -113,9 +130,20 @@ export default function SoundtrackPage() {
 
         {/* Page Hero Header */}
         <div className="text-center max-w-3xl mx-auto mb-6 space-y-4 animate-fadeIn">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#14151c]/90 border border-[#e8602e]/40 shadow-[0_0_20px_rgba(232,96,46,0.25)] text-xs font-extrabold uppercase tracking-widest text-amber-400">
-            <Radio className="w-4 h-4 text-[#e8602e] animate-pulse" />
-            <span>PHA SALON AUDIO SUITE</span>
+          <div className="flex flex-wrap items-center justify-center gap-3">
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#14151c]/90 border border-[#e8602e]/40 shadow-[0_0_20px_rgba(232,96,46,0.25)] text-xs font-extrabold uppercase tracking-widest text-amber-400">
+              <Radio className="w-4 h-4 text-[#e8602e] animate-pulse" />
+              <span>PHA SALON AUDIO SUITE</span>
+            </div>
+
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-red-500/10 border border-red-500/30 text-xs font-bold tracking-wide text-zinc-200">
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-red-500"></span>
+              </span>
+              <Users className="w-3.5 h-3.5 text-zinc-400" />
+              <span>{liveVisitors > 0 ? liveVisitors : "..."} Active Visitors On Site</span>
+            </div>
           </div>
 
           <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black tracking-tight font-cinzel text-white drop-shadow-[0_4px_20px_rgba(0,0,0,0.8)]">
@@ -349,11 +377,17 @@ export default function SoundtrackPage() {
               </div>
 
               {/* Flexbox container with centered 40px 50% Border-Radius Round Play/Pause Button */}
-              <div
-                style={{ display: "flex", alignItems: "center", justifyContent: "center" }}
-                className="flex-shrink-0 flex items-center justify-center pl-1 pr-2"
-              >
-                {/* 40px Round Play/Pause Button with 50% border radius and react-icons SVG */}
+              {/* Player Controls Container */}
+              <div className="flex-shrink-0 flex items-center justify-center gap-2 pl-1 pr-2">
+                <button
+                  onClick={handlePrevTrack}
+                  className="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-all cursor-pointer hover:scale-105 active:scale-95"
+                  aria-label="Previous track"
+                  title="Previous track"
+                >
+                  <SkipBack className="w-3.5 h-3.5" />
+                </button>
+
                 <button
                   onClick={handleTogglePlay}
                   style={{
@@ -373,24 +407,31 @@ export default function SoundtrackPage() {
                     <FaPlay style={{ width: "14px", height: "14px", marginLeft: "2px" }} className="text-black" />
                   )}
                 </button>
+
+                <button
+                  onClick={handleNextTrack}
+                  className="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-all cursor-pointer hover:scale-105 active:scale-95"
+                  aria-label="Next track"
+                  title="Next track"
+                >
+                  <SkipForward className="w-3.5 h-3.5" />
+                </button>
               </div>
 
+            </div>
+
+            {/* Currently Playing Track Label */}
+            <div className="text-center pt-2">
+              <span className="text-[11px] font-mono text-zinc-400">
+                Lounge Track: <strong className="text-amber-400">{currentPlayingTrack.title}</strong> — {currentPlayingTrack.artist}
+              </span>
             </div>
           </div>
         )}
 
       </main>
 
-      {/* Footer Signature */}
-      <footer className="relative z-10 py-6 border-t border-white/10 text-center text-xs text-zinc-500 font-medium">
-        <div className="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-3">
-          <p>© 2026 PHA Salon & Spa. All rights reserved.</p>
-          <div className="flex items-center gap-2 text-zinc-400">
-            <Radio className="w-3.5 h-3.5 text-[#e8602e]" />
-            <span>Nostalgia Salon Radio & Soundtrack Experience</span>
-          </div>
-        </div>
-      </footer>
+      <Footer />
 
     </div>
   );

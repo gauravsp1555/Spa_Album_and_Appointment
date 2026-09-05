@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 import {
   MapPin,
   Phone,
@@ -10,6 +11,7 @@ import {
   ExternalLink,
   Send,
   CheckCircle2,
+  MessageCircle,
 } from "lucide-react";
 
 export default function ContactPage() {
@@ -58,17 +60,23 @@ export default function ContactPage() {
                 <Send className="w-6 h-6 text-[#e8602e]" /> Send Us a Direct Message
               </h3>
               <p className="text-xs text-zinc-400 mt-1">
-                Fill This form and contact us for appointment & suggestions.
+                Fill this form to contact our concierge for appointment inquiries, wedding packages & feedback.
               </p>
             </div>
 
             {submitted ? (
               <div className="bg-[#1a1c26]/80 backdrop-blur-md border-2 border-[#e8602e]/50 text-white p-8 rounded-2xl text-center space-y-3 shadow-[0_0_30px_rgba(232,96,46,0.25)]">
                 <CheckCircle2 className="w-12 h-12 text-[#e8602e] mx-auto animate-bounce" />
-                <h4 className="font-extrabold text-xl">Message Dispatched Sussefully </h4>
+                <h4 className="font-extrabold text-xl">Message Dispatched Successfully!</h4>
                 <p className="text-sm text-zinc-300 leading-relaxed">
-                  Thank you for reaching out to PHA Salon.
+                  Thank you for reaching out to PHA Salon. Our concierge will review your message and reach out shortly.
                 </p>
+                <button
+                  onClick={() => setSubmitted(false)}
+                  className="bg-[#e8602e] text-white text-xs font-bold px-4 py-2 rounded-xl mt-2 cursor-pointer"
+                >
+                  Send Another Message
+                </button>
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="flex flex-col space-y-5">
@@ -153,7 +161,15 @@ export default function ContactPage() {
                     >
                       +91 98236 21827
                     </a>
-                    <span className="text-[11px] text-emerald-400 font-bold block mt-0.5">20% OFF ON ALL SERVICES</span>
+                    <a
+                      href="https://wa.me/919823621827?text=Hello%20PHA%20Salon,%20I%20would%20like%20to%20inquire%20about%20booking%20an%20appointment"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1.5 text-xs text-emerald-400 hover:text-emerald-300 font-bold mt-1"
+                    >
+                      <MessageCircle className="w-3.5 h-3.5" />
+                      <span>Chat on WhatsApp</span>
+                    </a>
                   </div>
                 </div>
 
@@ -245,6 +261,8 @@ export default function ContactPage() {
           </div>
         </div>
       </main>
+
+      <Footer />
     </div>
   );
 }

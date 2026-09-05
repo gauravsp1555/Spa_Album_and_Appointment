@@ -253,6 +253,8 @@
 
 .gaurav-gradient-text {
   background: linear-gradient(135deg, #ffffff 0%, #f3f4f6 50%, #e8602e 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
@@ -270,6 +272,29 @@
   border-color: rgba(232, 96, 46, 0.5);
   box-shadow: 0 0 25px rgba(232, 96, 46, 0.15);
   transform: translateY(-2px);
+}
+
+.luxury-glass {
+  background: rgba(20, 21, 28, 0.75);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.light .luxury-glass {
+  background: rgba(255, 255, 255, 0.85) !important;
+  border-color: rgba(0, 0, 0, 0.08) !important;
+}
+
+.shimmer-badge {
+  background: linear-gradient(90deg, rgba(232, 96, 46, 0.15) 0%, rgba(255, 122, 69, 0.3) 50%, rgba(232, 96, 46, 0.15) 100%);
+  background-size: 200% 100%;
+  animation: shimmer 3s infinite linear;
+}
+
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
 }
 
 /* Gaurav Sapkar Marquee Infinite Ticker Animation */

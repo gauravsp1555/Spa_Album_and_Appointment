@@ -2,6 +2,7 @@
 
 import React, { useState, useMemo, useRef } from "react";
 import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 import { parseCSV, ParsedCSV } from "@/lib/csvParser";
 import * as XLSX from "xlsx";
 import {
@@ -1609,6 +1610,8 @@ export default function Dashboard() {
         )}
 
       </main>
+
+      <Footer />
     </div>
   );
 }

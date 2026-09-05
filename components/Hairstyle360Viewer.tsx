@@ -145,9 +145,12 @@ export default function Hairstyle360Viewer({
         </div>
 
         {/* Image */}
+        {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src={currentView.url}
           alt={hairstyle.name}
+          width={600}
+          height={600}
           className="max-h-full max-w-full object-cover rounded-xl shadow-2xl pointer-events-none transition-all brightness-95"
           draggable={false}
         />

@@ -111,6 +111,7 @@ export const SALON_PLAYLIST: Track[] = [
     cover: "/images/categories/seniors.jpg",
     audioUrl: "https://cdn.pixabay.com/download/audio/2021/09/06/audio_84976722d3.mp3?filename=ambient-piano-amp-strings-10711.mp3",
     duration: 172,
+    category: "gen-z",
   },
   // ================= TRENDING SONGS CATEGORY =================
   {

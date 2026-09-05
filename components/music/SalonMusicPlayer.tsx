@@ -113,6 +113,38 @@ export default function SalonMusicPlayer() {
     });
   }, [loopPlaylist, selectTrack]);
 
+  // Skip to previous track
+  const handlePrevTrack = useCallback(() => {
+    setCurrentIndex((prevIdx) => {
+      let prevIdxNew = prevIdx - 1;
+      if (prevIdxNew < 0) {
+        prevIdxNew = SALON_PLAYLIST.length - 1;
+      }
+      selectTrack(prevIdxNew);
+      return prevIdxNew;
+    });
+  }, [selectTrack]);
+
+  // Toggle Play / Pause
+  const togglePlay = useCallback(async () => {
+    if (!audioRef.current) return;
+
+    if (isPlaying) {
+      audioRef.current.pause();
+      setIsPlaying(false);
+    } else {
+      try {
+        setHasError(false);
+        await audioRef.current.play();
+        setIsPlaying(true);
+      } catch (err) {
+        console.warn("Autoplay or playback blocked by browser:", err);
+        setHasError(true);
+        setIsPlaying(false);
+      }
+    }
+  }, [isPlaying]);
+
   // Audio Event Listeners
   useEffect(() => {
     const audio = audioRef.current;
@@ -185,36 +217,7 @@ export default function SalonMusicPlayer() {
       window.removeEventListener("pha_next_track", handleCustomNextTrack);
       window.removeEventListener("pha_prev_track", handleCustomPrevTrack);
     };
-  }, [currentIndex, currentTrack.duration, handleNextTrack, selectTrack]);
-
-  // Toggle Play / Pause
-  const togglePlay = async () => {
-    if (!audioRef.current) return;
-
-    if (isPlaying) {
-      audioRef.current.pause();
-      setIsPlaying(false);
-    } else {
-      try {
-        setHasError(false);
-        await audioRef.current.play();
-        setIsPlaying(true);
-      } catch (err) {
-        console.warn("Autoplay or playback blocked by browser:", err);
-        setHasError(true);
-        setIsPlaying(false);
-      }
-    }
-  };
-
-  // Skip to previous track
-  const handlePrevTrack = () => {
-    let prevIdx = currentIndex - 1;
-    if (prevIdx < 0) {
-      prevIdx = SALON_PLAYLIST.length - 1;
-    }
-    selectTrack(prevIdx);
-  };
+  }, [currentIndex, currentTrack.duration, handleNextTrack, handlePrevTrack, selectTrack, togglePlay]);
 
   // Handle Seeking
   const handleSeek = (e: React.ChangeEvent<HTMLInputElement>) => {

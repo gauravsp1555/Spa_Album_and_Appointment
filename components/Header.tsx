@@ -51,9 +51,12 @@ export default function Header() {
 
           <Link href="/" className="group flex items-center gap-3.5 text-lg sm:text-xl font-extrabold tracking-tight">
             <div className="relative w-11 h-11 sm:w-12 sm:h-12 rounded-2xl overflow-hidden bg-[#14151c] border-2 border-[#e8602e]/60 p-0.5 group-hover:border-[#e8602e] transition-all shadow-[0_0_20px_rgba(232,96,46,0.35)] flex-shrink-0 flex items-center justify-center">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src="/images/pha-logo.png"
                 alt="PHA Salon Logo"
+                width={48}
+                height={48}
                 className="w-full h-full object-cover rounded-xl group-hover:scale-110 transition-transform duration-300"
               />
             </div>
@@ -73,14 +76,15 @@ export default function Header() {
           </Link>
 
           {/* Desktop Navigation Items */}
-          <nav className="hidden md:flex items-center gap-2 text-xs sm:text-sm font-semibold">
+          <nav className="hidden md:flex items-center gap-1.5 lg:gap-2 text-xs sm:text-sm font-semibold">
             {navLinks.map((link) => {
-              const isActive = pathname === link.href;
+              const baseHref = link.href.split("?")[0];
+              const isActive = pathname === baseHref;
               return (
                 <Link
                   key={link.name}
                   href={link.href}
-                  className={`px-4 py-2 rounded-xl transition-all duration-200 ${isActive
+                  className={`px-3.5 lg:px-4 py-2 rounded-xl transition-all duration-200 ${isActive
                       ? "bg-[#e8602e] text-white font-bold shadow-[0_0_15px_rgba(232,96,46,0.4)]"
                       : "text-zinc-300 hover:text-white hover:bg-zinc-800/80"
                     }`}
@@ -116,6 +120,7 @@ export default function Header() {
             <button
               onClick={() => setIsBookModalOpen(true)}
               className="bg-[#e8602e] text-white p-2 rounded-xl text-xs font-bold flex items-center gap-1"
+              aria-label="Book Appointment"
             >
               <Calendar className="w-4 h-4" />
             </button>
@@ -132,7 +137,8 @@ export default function Header() {
             </button>
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="text-zinc-300 hover:text-white p-2"
+              className="text-zinc-300 hover:text-white p-2 rounded-xl bg-zinc-800/60"
+              aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
             >
               {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
             </button>
@@ -141,16 +147,17 @@ export default function Header() {
 
         {/* Mobile Dropdown Navigation */}
         {mobileMenuOpen && (
-          <div className="md:hidden pt-4 pb-2 px-2 border-t border-white/10 mt-3 space-y-2 animate-fadeIn">
+          <div className="md:hidden pt-4 pb-3 px-2 border-t border-white/10 mt-3 space-y-1.5 animate-fadeIn">
             {navLinks.map((link) => {
-              const isActive = pathname === link.href;
+              const baseHref = link.href.split("?")[0];
+              const isActive = pathname === baseHref;
               return (
                 <Link
                   key={link.name}
                   href={link.href}
                   onClick={() => setMobileMenuOpen(false)}
                   className={`block px-4 py-2.5 rounded-xl text-sm font-semibold transition-all ${isActive
-                      ? "bg-[#e8602e] text-white font-bold"
+                      ? "bg-[#e8602e] text-white font-bold shadow-[0_0_15px_rgba(232,96,46,0.4)]"
                       : "text-zinc-300 hover:bg-zinc-800"
                     }`}
                 >

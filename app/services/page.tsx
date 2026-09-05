@@ -2,6 +2,7 @@
 
 import React, { useState, useMemo } from "react";
 import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 import { serviceCategories } from "@/lib/servicesData";
 import BookAppointmentModal from "@/components/BookAppointmentModal";
 import PriceListModal from "@/components/PriceListModal";
@@ -356,6 +357,8 @@ export default function ServicesPage() {
         onClose={() => setIsPriceListOpen(false)}
         onSelectServiceForBooking={(catId, subName) => handleOpenBooking(catId, subName)}
       />
+
+      <Footer />
     </div>
   );
 }
